@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Person from './components/Person';
 
-const name = 'shannon';
 class App extends Component {
   render() {
     return (
@@ -20,6 +20,8 @@ class App extends Component {
           >
             Learn React
           </a>
+          <hr />
+          <Person name="Dustin" />
         </header>
       </div>
     );
