@@ -1,9 +1,11 @@
 import React from 'react';
+import './Person.css';
 
 const Person = props => (
-  <div>
+  <div className="person">
     <code>
-      My name is {props.name}, i'm {Math.floor(Math.random() * 30)} years old!
+      My name is {props.name}, i'm {props.age} years old!
+      <div>{props.children}</div>
     </code>
   </div>
 );
