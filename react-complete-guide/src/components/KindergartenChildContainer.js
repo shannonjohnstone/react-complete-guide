@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import Radium from 'radium';
 import Person from './Person';
 
 import './Kindergarten.css';
@@ -58,10 +59,20 @@ class KindergartenChildContainer extends PureComponent {
     ));
 
   render() {
-    console.log('PURE');
+    const style = {
+      padding: '8px',
+      backgroundColor: 'white',
+      cursor: 'pointer',
+      ':hover': {
+        backgroundColor: 'lightgrey',
+      },
+    };
+
     return (
       <React.Fragment>
-        <button onClick={this.displayType}>{this.buttonText()}</button>
+        <button style={style} onClick={this.displayType}>
+          {this.buttonText()}
+        </button>
         {this.renderChildBlock()}
       </React.Fragment>
     );
@@ -72,4 +83,4 @@ KindergartenChildContainer.defaultProps = {
   persons: [],
 };
 
-export default KindergartenChildContainer;
+export default Radium(KindergartenChildContainer);

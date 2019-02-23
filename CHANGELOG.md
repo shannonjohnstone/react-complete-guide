@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## Chapter 05
+- add radium to use :hover
+- add ClassLevelComponent
+- add dynamic class to button
+
 ## Chapter 04
 - removed react hooks, will come back to this
 

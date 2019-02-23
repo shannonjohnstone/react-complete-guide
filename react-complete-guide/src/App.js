@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import KindergartenChildContainer from './components/KindergartenChildContainer';
+import ClassLevelNotification from './components/ClassLevelNotification';
 
 class App extends Component {
   state = {
@@ -55,6 +56,7 @@ class App extends Component {
             React Docs
           </a>
         </header>
+        <ClassLevelNotification persons={this.state.persons} />
         <KindergartenChildContainer
           persons={this.state.persons}
           switchNameHandler={this.switchNameHandler}
