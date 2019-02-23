@@ -4,9 +4,9 @@ import KindergartenChildContainer from './components/KindergartenChildContainer'
 
 const App = props => {
   const [persons, setPersons] = useState([
-    { name: 'Dustin', age: 5 },
-    { name: 'Zag', age: 1 },
-    { name: 'Ziggy', age: 5 },
+    { id: 1, name: 'Dustin', age: 5 },
+    { id: 2, name: 'Zag', age: 1 },
+    { id: 3, name: 'Ziggy', age: 5 },
   ]);
 
   const switchNameHandler = name => {

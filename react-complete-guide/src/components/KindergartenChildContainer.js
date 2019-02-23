@@ -29,19 +29,25 @@ class KindergartenChildContainer extends PureComponent {
   buttonText = () =>
     this.state.displayAll ? 'Show kindergarten kids' : 'Show All';
 
-  renderPersonBlock = () =>
+  renderChildBlock = () =>
     this.resolveChildrenToDisplay(
       this.props.persons,
       this.state.displayAll,
     ).map((person, index) => (
-      <div className="kindergarten-child">
-        <Person key={person.name} {...person} />
-        <div>
-          <input
-            type="text"
-            onChange={e => this.props.nameChangeHandler(e.target.value, index)}
-          />
-        </div>
+      <div className="kindergarten-child" key={person.id}>
+        <Person {...person} />
+        <form>
+          <fieldset>
+            <label htmlFor="nameChange">Update child's name</label>
+            <input
+              name="nameChange"
+              type="text"
+              onChange={e =>
+                this.props.nameChangeHandler(e.target.value, index)
+              }
+            />
+          </fieldset>
+        </form>
         <button onClick={() => this.props.switchNameHandler(person.name)}>
           Switch name
         </button>
@@ -49,10 +55,11 @@ class KindergartenChildContainer extends PureComponent {
     ));
 
   render() {
+    console.log('PURE');
     return (
       <React.Fragment>
         <button onClick={this.displayType}>{this.buttonText()}</button>
-        {this.renderPersonBlock()}
+        {this.renderChildBlock()}
       </React.Fragment>
     );
   }
