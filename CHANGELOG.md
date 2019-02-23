@@ -1,6 +1,8 @@
 # CHANGELOG
 
 ## Chapter 05
+- add node-sass
+- remove radium and use css modules
 - add radium to use :hover
 - add ClassLevelComponent
 - add dynamic class to button

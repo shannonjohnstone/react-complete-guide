@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import Radium from 'radium';
 import Person from './Person';
 
-import './Kindergarten.css';
+import styles from './Kindergarten.module.scss';
 
 class KindergartenChildContainer extends PureComponent {
   state = {
@@ -35,7 +35,7 @@ class KindergartenChildContainer extends PureComponent {
       this.props.persons,
       this.state.displayAll,
     ).map((person, index) => (
-      <div className="kindergarten-child" key={person.id}>
+      <div className={styles.kindergartenChild} key={person.id}>
         <Person {...person} />
         <form>
           <fieldset>
@@ -59,18 +59,12 @@ class KindergartenChildContainer extends PureComponent {
     ));
 
   render() {
-    const style = {
-      padding: '8px',
-      backgroundColor: 'white',
-      cursor: 'pointer',
-      ':hover': {
-        backgroundColor: 'lightgrey',
-      },
-    };
-
     return (
       <React.Fragment>
-        <button style={style} onClick={this.displayType}>
+        <button
+          className={styles.buttonKindergartenChild}
+          onClick={this.displayType}
+        >
           {this.buttonText()}
         </button>
         {this.renderChildBlock()}
