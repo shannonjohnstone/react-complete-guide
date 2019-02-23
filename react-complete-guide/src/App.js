@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Radium, { StyleRoot } from 'radium';
 import './App.css';
-import KindergartenChildContainer from './components/KindergartenChildContainer';
+import KindergartenClassContainer from './components/kindergarten-class/KindergartenClassContainer';
 import ClassLevelNotification from './components/ClassLevelNotification';
 
 class App extends Component {
@@ -59,7 +59,7 @@ class App extends Component {
             </a>
           </header>
           <ClassLevelNotification persons={this.state.persons} />
-          <KindergartenChildContainer
+          <KindergartenClassContainer
             persons={this.state.persons}
             switchNameHandler={this.switchNameHandler}
             nameChangeHandler={this.nameChangeHandler}

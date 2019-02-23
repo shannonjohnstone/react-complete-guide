@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## Chapter 06
+- create ErrorBoundary component
+- refactor kindergarten container
+- start to break up components
+
 ## Chapter 05
 - add node-sass
 - remove radium and use css modules
