@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## Chapter 04
+- removed react hooks, will come back to this
+
 ## Chapter 03
 - update prettier, clean up App.js, add new components, Person, KindergartenChildContainer
 - update eslint/prettier to work better together, better on save formatting

@@ -51,6 +51,9 @@ class KindergartenChildContainer extends PureComponent {
         <button onClick={() => this.props.switchNameHandler(person.name)}>
           Switch name
         </button>
+        <button onClick={() => this.props.deletePerson(person.id)}>
+          Delete
+        </button>
       </div>
     ));
 

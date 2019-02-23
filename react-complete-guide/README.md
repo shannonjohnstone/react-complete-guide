@@ -31,3 +31,4 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 - create more components, reduce html markup
 - update CSS class names
+- update to use react hooks
