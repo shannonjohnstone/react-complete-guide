@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Radium, { StyleRoot } from 'radium';
 import './App.css';
 import KindergartenChildContainer from './components/KindergartenChildContainer';
 import ClassLevelNotification from './components/ClassLevelNotification';
@@ -45,27 +46,29 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Docs
-          </a>
-        </header>
-        <ClassLevelNotification persons={this.state.persons} />
-        <KindergartenChildContainer
-          persons={this.state.persons}
-          switchNameHandler={this.switchNameHandler}
-          nameChangeHandler={this.nameChangeHandler}
-          deletePerson={this.deletePerson}
-        />
-      </div>
+      <StyleRoot>
+        <div className="App">
+          <header className="App-header">
+            <a
+              className="App-link"
+              href="https://reactjs.org"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              React Docs
+            </a>
+          </header>
+          <ClassLevelNotification persons={this.state.persons} />
+          <KindergartenChildContainer
+            persons={this.state.persons}
+            switchNameHandler={this.switchNameHandler}
+            nameChangeHandler={this.nameChangeHandler}
+            deletePerson={this.deletePerson}
+          />
+        </div>
+      </StyleRoot>
     );
   }
 }
 
-export default App;
+export default Radium(App);
