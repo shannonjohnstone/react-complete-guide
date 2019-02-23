@@ -12,6 +12,9 @@ module.exports = {
     'key-spacing': ['error', { 'afterColon': true }],
     'semi': 'error',
     'quotes': ['error', 'single'],
-    'max-len': ['error', 80],
+    'max-len': ['error', 80, {
+      "ignoreComments": true,
+      "ignoreStrings": true
+    }],
   }
 };

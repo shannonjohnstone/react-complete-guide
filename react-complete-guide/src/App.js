@@ -30,18 +30,16 @@ class App extends Component {
     }
   };
 
-  nameChangeHandler = (name, index) => {
-    const updatedPersons = this.state.persons.map((person, i) =>
-      index === i ? { ...person, name: name } : person,
+  nameChangeHandler = (name, id) => {
+    const persons = this.state.persons.map(person =>
+      person.id === id ? { ...person, name: name } : person,
     );
-    this.setState({ persons: updatedPersons });
+    this.setState({ persons });
   };
 
-  deletePerson = personId => {
-    const updatedPersons = this.state.persons.filter(
-      person => person.id !== personId,
-    );
-    this.setState({ persons: updatedPersons });
+  deletePerson = id => {
+    const persons = this.state.persons.filter(person => person.id !== id);
+    this.setState({ persons });
   };
 
   render() {

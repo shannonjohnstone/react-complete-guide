@@ -43,7 +43,7 @@ class KindergartenChildContainer extends PureComponent {
               name="nameChange"
               type="text"
               onChange={e =>
-                this.props.nameChangeHandler(e.target.value, index)
+                this.props.nameChangeHandler(e.target.value, person.id)
               }
             />
           </fieldset>
