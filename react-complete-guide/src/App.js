@@ -2,34 +2,37 @@ import React, { useState } from 'react';
 import './App.css';
 import KindergartenChildContainer from './components/KindergartenChildContainer';
 
-const personsArray = [
-  { name: 'Dustin', age: 5 },
-  { name: 'Zag', age: 1 },
-  { name: 'Ziggy', age: 5 },
-];
-
 const App = props => {
-  const [persons, setPersons] = useState(personsArray);
+  const [persons, setPersons] = useState([
+    { name: 'Dustin', age: 5 },
+    { name: 'Zag', age: 1 },
+    { name: 'Ziggy', age: 5 },
+  ]);
 
-  const switchNameHandler = () => {
-    const nameArray = ['fox', 'zag', 'ziggy'];
-    const val = nameArray[Math.floor(Math.random() * nameArray.length)];
-
+  const switchNameHandler = name => {
     /**
      * this condition is for demonstrating when KindergartenChildContainer
      * does and does not update as a pure component
      * setPerson will only run when it is fox, which means KindergartenChildContainer
      * only updates with that update
      */
-    if (val === 'fox') {
+
+    if (name.toLowerCase() === 'dustin') {
       // update persons array, replace Dustin with Fox
-      const persons = personsArray.map(person =>
+      const updatedPersons = persons.map(person =>
         person.name.toLowerCase() === 'dustin'
           ? { ...person, name: 'Fox' }
           : person,
       );
-      setPersons(persons);
+      setPersons(updatedPersons);
     }
+  };
+
+  const nameChangeHandler = (name, index) => {
+    const updatedPersons = persons.map((person, i) =>
+      index === i ? { ...person, name: name } : person,
+    );
+    setPersons(updatedPersons);
   };
 
   return (
@@ -44,8 +47,12 @@ const App = props => {
           React Docs
         </a>
       </header>
-      <button onClick={switchNameHandler}>Switch name</button>
-      <KindergartenChildContainer children={persons} />
+      {/* <button onClick={switchNameHandler}>Switch name</button> */}
+      <KindergartenChildContainer
+        persons={persons}
+        switchNameHandler={switchNameHandler}
+        nameChangeHandler={nameChangeHandler}
+      />
     </div>
   );
 };
