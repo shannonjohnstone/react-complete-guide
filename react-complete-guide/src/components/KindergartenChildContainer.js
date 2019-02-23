@@ -1,19 +1,15 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Person from './Person';
 
-class KindergartenChildContainer extends Component {
-  state = { kindergartenChildren: [] };
-
-  componentDidMount() {
-    const kindergartenChildren = this.props.children
+class KindergartenChildContainer extends PureComponent {
+  resolveChildren = children => {
+    console.log(children, 'children');
+    return children
       .map(this.determineKindergartenAge)
       .filter(child => child.kindergartenAge);
-
-    this.setState({ kindergartenChildren: kindergartenChildren });
-  }
+  };
 
   determineKindergartenAge = child => {
-    console.log({ child });
     const age = Math.floor(Math.random() * child.age);
     return {
       ...child,
@@ -23,14 +19,14 @@ class KindergartenChildContainer extends Component {
   };
 
   render() {
-    return this.state.kindergartenChildren.map(person => (
+    return this.resolveChildren(this.props.children).map(person => (
       <Person key={person.name} {...person} />
     ));
   }
 }
 
 KindergartenChildContainer.defaultProps = {
-  kindergartenChildren: [],
+  children: [],
 };
 
 export default KindergartenChildContainer;
