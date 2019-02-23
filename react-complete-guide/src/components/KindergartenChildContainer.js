@@ -29,39 +29,30 @@ class KindergartenChildContainer extends PureComponent {
   buttonText = () =>
     this.state.displayAll ? 'Show kindergarten kids' : 'Show All';
 
+  renderPersonBlock = () =>
+    this.resolveChildrenToDisplay(
+      this.props.persons,
+      this.state.displayAll,
+    ).map((person, index) => (
+      <div className="kindergarten-child">
+        <Person key={person.name} {...person} />
+        <div>
+          <input
+            type="text"
+            onChange={e => this.props.nameChangeHandler(e.target.value, index)}
+          />
+        </div>
+        <button onClick={() => this.props.switchNameHandler(person.name)}>
+          Switch name
+        </button>
+      </div>
+    ));
+
   render() {
-    const style = {
-      backgroundColor: 'white',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-    };
-
-    const { persons, switchNameHandler, nameChangeHandler } = this.props;
-    const { displayAll } = this.state;
-
     return (
       <React.Fragment>
-        <button style={style} onClick={this.displayType}>
-          {this.buttonText()}
-        </button>
-
-        {this.resolveChildrenToDisplay(persons, displayAll).map(
-          (person, index) => (
-            <div className="kindergarten-child">
-              <Person key={person.name} {...person} />
-              <div>
-                <input
-                  type="text"
-                  onChange={e => nameChangeHandler(e.target.value, index)}
-                />
-              </div>
-              <button onClick={() => switchNameHandler(person.name)}>
-                Switch name
-              </button>
-            </div>
-          ),
-        )}
+        <button onClick={this.displayType}>{this.buttonText()}</button>
+        {this.renderPersonBlock()}
       </React.Fragment>
     );
   }
