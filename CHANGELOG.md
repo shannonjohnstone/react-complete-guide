@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## Chapter 07
+- create data fetching render props component (may turn this back into HOC)
+- add mock api
+- refactor project structure a little
+
 ## Chapter 06
 - create ErrorBoundary component
 - refactor kindergarten container

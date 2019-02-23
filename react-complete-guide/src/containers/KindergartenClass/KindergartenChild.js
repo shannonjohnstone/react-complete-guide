@@ -1,14 +1,12 @@
 import React, { PureComponent } from 'react';
-import Person from '../Person';
-import Button from '../Button';
+import Person from '../../components/Person/Person';
+import Button from '../../components/Button';
 
-import styles from './Kindergarten.module.scss';
-
-class Kindergarten extends PureComponent {
+class KindergartenChild extends PureComponent {
   render() {
     const { person } = this.props;
     return (
-      <div className={styles.kindergartenChild} key={person.id}>
+      <div key={person.id}>
         <Person {...person} />
         <form>
           <fieldset>
@@ -35,4 +33,4 @@ class Kindergarten extends PureComponent {
   }
 }
 
-export default Kindergarten;
+export default KindergartenChild;
