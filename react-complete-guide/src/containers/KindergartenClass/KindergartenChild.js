@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import Person from '../../components/Person/Person';
+import PersonClass from '../../components/Person/PersonClass';
 import Button from '../../components/Button';
 
 class KindergartenChild extends PureComponent {
@@ -7,7 +8,7 @@ class KindergartenChild extends PureComponent {
     const { person } = this.props;
     return (
       <div key={person.id}>
-        <Person {...person} />
+        <PersonClass {...person} />
         <form>
           <fieldset>
             <label htmlFor="nameChange">Update child's name</label>

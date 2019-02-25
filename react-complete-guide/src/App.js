@@ -1,8 +1,21 @@
 import React, { Component } from 'react';
 import './App.css';
 import KindergartenClassContainer from './containers/KindergartenClass/KindergartenClassContainer';
+import KindergartenClassContainerRenderPropsHook from './containers/KindergartenClass/KindergartenClassContainerRenderPropsHook';
 class App extends Component {
+  constructor(props) {
+    super(props);
+    console.log('App: constructor');
+  }
+  static getDerivedStateFromProps(props, state) {
+    console.log('App: getDerivedStateFromProps', props);
+    return state;
+  }
+  componentDidMount() {
+    console.log('App: componentDidMount');
+  }
   render() {
+    console.log('App: render');
     return (
       <div className="App">
         <header className="App-header">
@@ -15,7 +28,8 @@ class App extends Component {
             React Docs
           </a>
         </header>
-        <KindergartenClassContainer />
+        {/* <KindergartenClassContainer /> */}
+        <KindergartenClassContainerRenderPropsHook />
       </div>
     );
   }

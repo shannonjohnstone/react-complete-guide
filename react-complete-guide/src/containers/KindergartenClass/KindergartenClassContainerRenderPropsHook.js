@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import KindergartenChild from './KindergartenChild';
 import ClassLevelNotification from '../../components/ClassLevelNotification';
-// import FetchData from '../../renderProps/FetchData';
+import FetchData from '../../renderProps/FetchDataWithHooks';
 import { useDataFetching } from '../../hooks/index';
 import Button from '../../components/Button';
 
@@ -11,12 +11,11 @@ import { mockFetchStudents } from '../../api/students';
 
 const KindergartenChildContainer = props => {
   const [displayAll, setDisplayAll] = useState(true);
-  const { data, isLoading } = useDataFetching(mockFetchStudents);
   const [persons, setPersons] = useState([]);
 
-  useEffect(() => {
-    setPersons(data);
-  }, [data]);
+  // useEffect(() => {
+  //   setPersons(data);
+  // }, [data]);
 
   const switchNameHandler = name => {
     /**
@@ -70,35 +69,38 @@ const KindergartenChildContainer = props => {
     setDisplayAll(!displayAll);
   };
 
+  console.log(persons, 'persons');
   return (
     <section className={styles.kindergartenChild}>
-      {isLoading ? (
-        'Loading...'
-      ) : (
-        <React.Fragment>
-          <ClassLevelNotification persons={persons} />
+      <FetchData
+        setData={setPersons}
+        fetchData={mockFetchStudents}
+        render={() => (
+          <React.Fragment>
+            <ClassLevelNotification persons={persons} />
 
-          <Button
-            className={styles.buttonKindergartenChild}
-            onClick={setDisplayType}
-            text={displayAll ? 'Show kindergarten kids' : 'Show All'}
-          />
+            <Button
+              className={styles.buttonKindergartenChild}
+              onClick={setDisplayType}
+              text={displayAll ? 'Show kindergarten kids' : 'Show All'}
+            />
 
-          <div>{!persons.length && 'No student data found.'}</div>
-          {resolveChildrenToDisplay(persons, displayAll).map(
-            (person, index) => (
-              <KindergartenChild
-                key={person.id}
-                person={person}
-                index={index}
-                nameChangeHandler={nameChangeHandler}
-                switchNameHandler={switchNameHandler}
-                deletePerson={deletePerson}
-              />
-            ),
-          )}
-        </React.Fragment>
-      )}
+            <div>{!persons.length && 'No student data found.'}</div>
+            {resolveChildrenToDisplay(persons, displayAll).map(
+              (person, index) => (
+                <KindergartenChild
+                  key={person.id}
+                  person={person}
+                  index={index}
+                  nameChangeHandler={nameChangeHandler}
+                  switchNameHandler={switchNameHandler}
+                  deletePerson={deletePerson}
+                />
+              ),
+            )}
+          </React.Fragment>
+        )}
+      />
     </section>
   );
 };
