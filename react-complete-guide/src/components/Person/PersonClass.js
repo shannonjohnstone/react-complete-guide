@@ -4,7 +4,7 @@ import './Person.css';
 /**
  * this a demo component to display working lifecycle methods
  */
-class Person extends React.Component {
+class Person extends React.PureComponent {
   constructor(props) {
     super(props);
     console.log('PersonsClass: constructor');
@@ -16,10 +16,14 @@ class Person extends React.Component {
   componentDidMount() {
     console.log('PersonsClass: componentDidMount');
   }
-  shouldComponentUpdate(prevProps) {
-    console.log('PersonsClass: shouldComponentUpdate');
-    return true;
-  }
+  // shouldComponentUpdate(nextProps) {
+  //   console.log('PersonsClass: shouldComponentUpdate');
+  //   // if (nextProps.persons !== this.props.persons) {
+  //   //   return true;
+  //   // } else {
+  //   //   return false;
+  //   // }
+  // }
   getSnapshotBeforeUpdate(prevProps, prevState) {
     console.log('PersonsClass: getSnapshotBeforeUpdate');
     return { message: 'SNAPSHOT!' };

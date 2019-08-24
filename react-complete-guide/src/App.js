@@ -2,15 +2,17 @@ import React, { Component } from 'react';
 import './App.css';
 import KindergartenClassContainer from './containers/KindergartenClass/KindergartenClassContainer';
 import KindergartenClassContainerRenderPropsHook from './containers/KindergartenClass/KindergartenClassContainerRenderPropsHook';
+import MemoExample from './memo-example/MemoExample';
+
 class App extends Component {
   constructor(props) {
     super(props);
     console.log('App: constructor');
   }
-  static getDerivedStateFromProps(props, state) {
-    console.log('App: getDerivedStateFromProps', props);
-    return state;
-  }
+  // static getDerivedStateFromProps(props, state) {
+  //   console.log('App: getDerivedStateFromProps', props);
+  //   return state;
+  // }
   componentDidMount() {
     console.log('App: componentDidMount');
   }
@@ -30,6 +32,7 @@ class App extends Component {
         </header>
         {/* <KindergartenClassContainer /> */}
         <KindergartenClassContainerRenderPropsHook />
+        <MemoExample />
       </div>
     );
   }

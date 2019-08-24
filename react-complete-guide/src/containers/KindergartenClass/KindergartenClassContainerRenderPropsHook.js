@@ -13,25 +13,24 @@ const KindergartenChildContainer = props => {
   const [displayAll, setDisplayAll] = useState(true);
   const [persons, setPersons] = useState([]);
 
-  // useEffect(() => {
-  //   setPersons(data);
-  // }, [data]);
-
-  const switchNameHandler = name => {
+  const switchNameHandler = (name, id) => {
+    console.log('switchNameHandler', name);
+    console.log('switchNameHandler', id);
     /**
      * this condition is for demonstrating when KindergartenChildContainer
      * does and does not update as a pure component
      * setPerson will only run when it is fox, which means KindergartenChildContainer
      * only updates with that update
      */
-
     if (name.toLowerCase() === 'dustin') {
       // update persons array, replace Dustin with Fox
+      console.log({ persons });
       const updatedPersons = persons.map(person =>
         person.name.toLowerCase() === 'dustin'
           ? { ...person, name: 'Fox' }
           : person,
       );
+      console.log({ updatedPersons });
       setPersons(updatedPersons);
     }
   };
@@ -69,40 +68,42 @@ const KindergartenChildContainer = props => {
     setDisplayAll(!displayAll);
   };
 
-  console.log(persons, 'persons');
   return (
     <section className={styles.kindergartenChild}>
       <FetchData
         setData={setPersons}
         fetchData={mockFetchStudents}
-        render={() => (
-          <React.Fragment>
-            <ClassLevelNotification persons={persons} />
+        render={() => {
+          console.log('re render...');
+          return (
+            <>
+              <ClassLevelNotification persons={persons} />
 
-            <Button
-              className={styles.buttonKindergartenChild}
-              onClick={setDisplayType}
-              text={displayAll ? 'Show kindergarten kids' : 'Show All'}
-            />
+              <Button
+                className={styles.buttonKindergartenChild}
+                onClick={setDisplayType}
+                text={displayAll ? 'Show kindergarten kids' : 'Show All'}
+              />
 
-            <div>{!persons.length && 'No student data found.'}</div>
-            {resolveChildrenToDisplay(persons, displayAll).map(
-              (person, index) => (
-                <KindergartenChild
-                  key={person.id}
-                  person={person}
-                  index={index}
-                  nameChangeHandler={nameChangeHandler}
-                  switchNameHandler={switchNameHandler}
-                  deletePerson={deletePerson}
-                />
-              ),
-            )}
-          </React.Fragment>
-        )}
+              <div>{!persons.length && 'No student data found.'}</div>
+              {resolveChildrenToDisplay(persons, displayAll).map(
+                (person, index) => (
+                  <KindergartenChild
+                    key={person.id}
+                    person={person}
+                    index={index}
+                    nameChangeHandler={nameChangeHandler}
+                    switchNameHandler={switchNameHandler}
+                    deletePerson={deletePerson}
+                  />
+                ),
+              )}
+            </>
+          );
+        }}
       />
     </section>
   );
 };
 
-export default KindergartenChildContainer;
+export default React.memo(KindergartenChildContainer);
