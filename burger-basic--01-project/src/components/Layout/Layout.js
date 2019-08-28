@@ -1,12 +1,12 @@
 import React from 'react'
 
-export default function Layout(props) {
-    return (
-        <>
-            <div>Toolbar, Sidebar, Backdrop</div>
-            <main>
-                {props.children}
-            </main>
-        </>
-    )
-}
+const Layout = (props) => (
+    <>
+        <div>Toolbar, Sidebar, Backdrop</div>
+        <main>
+            {props.children}
+        </main>
+    </>
+)
+
+export default Layout;
