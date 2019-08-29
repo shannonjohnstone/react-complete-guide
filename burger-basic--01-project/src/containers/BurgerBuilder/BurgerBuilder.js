@@ -20,8 +20,8 @@ class BurgerBuilder extends Component {
             meat: 0
         },
         price: {
-            total: BASE_PRICE
-        }
+            total: 0
+        },
     }
     manageIngredients = (type) => (conditionType) => {
         const currentValue = this.state.ingredients[type];
@@ -42,12 +42,13 @@ class BurgerBuilder extends Component {
         const total = Object.keys(this.state.ingredients)
             .filter(key => this.state.ingredients[key] > 0)
             .map(key => INGREDIENT_PRICES[key] * this.state.ingredients[key])
-            .reduce((prev, curr) => prev += curr, BASE_PRICE) 
+            .reduce((prev, curr) => prev += curr, 0) 
 
+        const totalWithBase = total + BASE_PRICE
         return {
             ...this.state,
             price: {
-                total: (total === BASE_PRICE || total < BASE_PRICE) ? BASE_PRICE : total
+                total: (totalWithBase === BASE_PRICE || totalWithBase < BASE_PRICE) ? 0 : totalWithBase
             }
         }
     }
@@ -68,10 +69,13 @@ class BurgerBuilder extends Component {
     render() {
         return (
             <>
-                <p>Burger Builder</p>
-                <p>Total Price: ${this.state.price.total}</p>
                 <Burger ingredients={this.state.ingredients} />
-                <BurgerBuildControl remove={this.removeIngredientsHandler} add={this.addIngredientsHandler} />
+                <BurgerBuildControl 
+                    canPurchase={this.state.price.total > 0} 
+                    price={this.state.price.total} 
+                    remove={this.removeIngredientsHandler} 
+                    add={this.addIngredientsHandler} 
+                />
             </>
         )
     }
