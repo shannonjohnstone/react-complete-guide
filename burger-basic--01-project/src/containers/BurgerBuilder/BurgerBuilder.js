@@ -70,7 +70,6 @@ class BurgerBuilder extends Component {
         )
     }
     handlerPurchasing = () => {
-        console.log('handlerPurchasing')
         this.setState({
             ...this.state,
             purchasing: !this.state.purchasing

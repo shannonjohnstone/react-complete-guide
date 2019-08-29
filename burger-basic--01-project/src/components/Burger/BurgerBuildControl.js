@@ -1,7 +1,6 @@
 import React from 'react'
 import classes from './BurgerBuildControl.module.css'
 import classesControls from './BurgerBuildControls.module.css'
-import constants from 'jest-haste-map/build/constants';
 
 const controls = [
     { label: 'Salad', type: 'salad' },
