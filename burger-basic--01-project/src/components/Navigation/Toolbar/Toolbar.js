@@ -7,20 +7,7 @@ const ToolBar = (props) => (
     <header  className={`App-header ${classes.ToolBar}`}>
         <img src={logo} className="App-logo" alt="logo" />
         <nav>
-            <NavigationItems
-                items={[
-                    {
-                        text: 'Burgers',
-                        link: '/',
-                        active: true
-                    },
-                    {
-                        text: 'Contact Us',
-                        link: '/contact',
-                        active: false
-                    }
-                ]}
-            />
+            <NavigationItems />
         </nav>
       </header>
 )

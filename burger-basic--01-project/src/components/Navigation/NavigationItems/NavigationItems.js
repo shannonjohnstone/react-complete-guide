@@ -1,9 +1,22 @@
 import React from 'react'
 import classes from './NavigationItems.module.css';
 
-const NavigationItems = (props) => (
+const defaultNavigationItems = [
+    {
+        text: 'Burgers',
+        link: '/',
+        active: true
+    },
+    {
+        text: 'Contact Us',
+        link: '/contact',
+        active: false
+    }
+]
+
+const NavigationItems = ({ items = defaultNavigationItems }) => (
     <ul className={classes.NavigationItems}>
-        {props.items.map(item => (
+        {items.map(item => (
             <li
                 key={item.text}
                 className={classes.NavigationItem}
@@ -18,5 +31,7 @@ const NavigationItems = (props) => (
         ))}
     </ul>
 )
+
+
 
 export default NavigationItems;
