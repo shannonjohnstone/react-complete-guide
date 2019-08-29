@@ -18,7 +18,8 @@ class Modal extends React.Component {
     }
     render() {
         return ReactDOM.createPortal(
-            <Backdrop show={this.props.show} handleClick={this.props.close}>
+            <>
+                <Backdrop show={this.props.show} handleClick={this.props.close} />>
                 Î<div
                     className={classes.Modal}
                     style={{
@@ -28,7 +29,7 @@ class Modal extends React.Component {
                 >
                     {this.props.children}
                 </div>
-            </Backdrop>,
+            </>,
             this.el
         )
     }
