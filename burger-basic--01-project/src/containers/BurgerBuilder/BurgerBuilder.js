@@ -45,7 +45,7 @@ class BurgerBuilder extends Component {
         const total = Object.keys(this.state.ingredients)
             .filter(key => this.state.ingredients[key] > 0)
             .map(key => INGREDIENT_PRICES[key] * this.state.ingredients[key])
-            .reduce((prev, curr) => prev += curr, 0) 
+            .reduce((prev, curr) => prev += curr, 0)
 
         const totalWithBase = total + BASE_PRICE
         return {
@@ -70,6 +70,7 @@ class BurgerBuilder extends Component {
         )
     }
     handlerPurchasing = () => {
+        console.log('handlerPurchasing')
         this.setState({
             ...this.state,
             purchasing: !this.state.purchasing
@@ -78,14 +79,14 @@ class BurgerBuilder extends Component {
     render() {
         return (
             <>
-                <Modal show={this.state.purchasing}>
-                    <OrderSummary ingredients={this.state.ingredients} />
+                <Modal show={this.state.purchasing} close={this.handlerPurchasing} >
+                    <OrderSummary ingredients={this.state.ingredients} handleCancel={this.handlerPurchasing} />
                 </Modal>
                 <Burger ingredients={this.state.ingredients} />
-                <BurgerBuildControl 
-                    canPurchase={this.state.price.total > 0} 
-                    price={this.state.price.total} 
-                    remove={this.removeIngredientsHandler} 
+                <BurgerBuildControl
+                    canPurchase={this.state.price.total > 0}
+                    price={this.state.price.total}
+                    remove={this.removeIngredientsHandler}
                     add={this.addIngredientsHandler}
                     handlerPurchasing={this.handlerPurchasing}
                 />
