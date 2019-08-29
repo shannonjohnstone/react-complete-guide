@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import Burger from '../../components/Burger/Burger';
 import BurgerBuildControl from '../../components/Burger/BurgerBuildControl'
+import Modal from '../../components/UI/Modal/Modal';
+import OrderSummary from '../../components/Burger/OrderSummary';
 
 const INGREDIENT_PRICES = {
     salad: 0.5,
@@ -22,6 +24,7 @@ class BurgerBuilder extends Component {
         price: {
             total: 0
         },
+        purchasing: false
     }
     manageIngredients = (type) => (conditionType) => {
         const currentValue = this.state.ingredients[type];
@@ -66,15 +69,25 @@ class BurgerBuilder extends Component {
             () => this.setState(this.managePrice(type)(conditionType))
         )
     }
+    handlerPurchasing = () => {
+        this.setState({
+            ...this.state,
+            purchasing: !this.state.purchasing
+        })
+    }
     render() {
         return (
             <>
+                <Modal show={this.state.purchasing}>
+                    <OrderSummary ingredients={this.state.ingredients} />
+                </Modal>
                 <Burger ingredients={this.state.ingredients} />
                 <BurgerBuildControl 
                     canPurchase={this.state.price.total > 0} 
                     price={this.state.price.total} 
                     remove={this.removeIngredientsHandler} 
-                    add={this.addIngredientsHandler} 
+                    add={this.addIngredientsHandler}
+                    handlerPurchasing={this.handlerPurchasing}
                 />
             </>
         )
