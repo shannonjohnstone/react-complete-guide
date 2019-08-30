@@ -19,8 +19,8 @@ class Modal extends React.Component {
     render() {
         return ReactDOM.createPortal(
             <>
-                <Backdrop show={this.props.show} handleClick={this.props.close} />>
-                Î<div
+                <Backdrop show={this.props.show} handleClick={this.props.close} />
+                <div
                     className={classes.Modal}
                     style={{
                         transform: this.props.show ? 'translateY(0)' : 'translateY(-100vh)',
