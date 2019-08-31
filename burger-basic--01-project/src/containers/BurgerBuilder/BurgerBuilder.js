@@ -3,15 +3,7 @@ import Burger from '../../components/Burger/Burger';
 import BurgerBuildControl from '../../components/Burger/BurgerBuildControl'
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary';
-
-const INGREDIENT_PRICES = {
-    salad: 0.5,
-    bacon: 1.5,
-    meat: 2.0,
-    cheese: 1.0
-}
-
-const BASE_PRICE = 4.0;
+import { prices } from '../../reference-data/prices';
 
 class BurgerBuilder extends Component {
     state = {
@@ -44,14 +36,14 @@ class BurgerBuilder extends Component {
     managePrice = (type) => (conditionType) => {
         const total = Object.keys(this.state.ingredients)
             .filter(key => this.state.ingredients[key] > 0)
-            .map(key => INGREDIENT_PRICES[key] * this.state.ingredients[key])
+            .map(key => prices.ingredientsPrices[key] * this.state.ingredients[key])
             .reduce((prev, curr) => prev += curr, 0)
 
-        const totalWithBase = total + BASE_PRICE
+        const totalWithBase = total + prices.basePrice
         return {
             ...this.state,
             price: {
-                total: (totalWithBase === BASE_PRICE || totalWithBase < BASE_PRICE) ? 0 : totalWithBase
+                total: (totalWithBase === prices.basePrice || totalWithBase < prices.basePrice) ? 0 : totalWithBase
             }
         }
     }
@@ -79,7 +71,11 @@ class BurgerBuilder extends Component {
         return (
             <>
                 <Modal show={this.state.purchasing} close={this.handlerPurchasing} >
-                    <OrderSummary price={this.state.price.total} ingredients={this.state.ingredients} handleCancel={this.handlerPurchasing} />
+                    <OrderSummary
+                        price={this.state.price.total}
+                        ingredients={this.state.ingredients}
+                        handleCancel={this.handlerPurchasing}
+                    />
                 </Modal>
                 <Burger ingredients={this.state.ingredients} />
                 <BurgerBuildControl

@@ -4,18 +4,18 @@ import SideDrawer from '../Navigation/SideDrawer/SideDrawer'
 
 class Layout extends React.Component {
     state = {
-        sideDrawerStatus: false
+        isSideDrawerOpen: false
     }
-    sideDrawerOpenClose = () => {
-        this.setState({ sideDrawerStatus: !this.state.sideDrawerStatus })
+    handleSideDrawerOpenClose = () => {
+        this.setState((prevState) => ({ isSideDrawerOpen: !prevState.isSideDrawerOpen }))
     }
     render() {
         return (
             <>
-                <Toolbar sideDrawerOpenClose={this.sideDrawerOpenClose} />
+                <Toolbar handleSideDrawerOpenClose={this.handleSideDrawerOpenClose} />
                 <SideDrawer 
-                    sideDrawerStatus={this.state.sideDrawerStatus} 
-                    sideDrawerOpenClose={this.sideDrawerOpenClose}
+                    isSideDrawerOpen={this.state.isSideDrawerOpen} 
+                    handleSideDrawerOpenClose={this.handleSideDrawerOpenClose}
                 />
                 <div>Toolbar, Sidebar, Backdrop</div>
                 <main>

@@ -1,0 +1,25 @@
+.NavigationHamburger {
+    width: 40px;
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+    justify-content: right;
+    align-items: center;
+    padding: 10px 0;
+    box-sizing: border-box;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+.NavigationHamburger div {
+    width: 90%;
+    height: 3px;
+    margin: 2px;
+    background-color: white;
+}
+
+@media (min-width: 500px) {
+    .NavigationHamburger {
+        display: none;
+    }
+}
