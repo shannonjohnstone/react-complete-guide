@@ -1,11 +1,11 @@
 import React from 'react'
 import Button from '../../components/UI/Button/Button';
 
-const OrderSummary = props => {
+const OrderSummary = React.memo(function OrderSummary(props) {
     const ingredientsSummary = (ingredients) => (
         Object.keys(ingredients)
             .filter(key => ingredients[key] > 0)
-            .map((key, index) => <li key={`${key + index}`}><span style={{ textTransform: 'capitalize' }}>{key}</span>: {ingredients[key]}</li> )
+            .map((key, index) => <li key={`${key + index}`}><span style={{ textTransform: 'capitalize' }}>{key}</span>: {ingredients[key]}</li>)
     )
 
     return (
@@ -21,6 +21,6 @@ const OrderSummary = props => {
             <Button btnType="Success" onClick={() => alert('You have continued')}>Continue</Button>
         </>
     )
-}
+})
 
 export default OrderSummary;

@@ -30,7 +30,7 @@ const Burger = (props) => (
             el: ({ key, index }) => (
                 <BurgerIngredients key={`${key + index}`} type={key} />
             ),
-            err: () => <h3>There seems to be no ingredients added!</h3>
+            err: () => <p><strong>There seems to be no ingredients added!</strong></p>
         })}
         <BurgerIngredients type={'bread-bottom'} />
     </div>
