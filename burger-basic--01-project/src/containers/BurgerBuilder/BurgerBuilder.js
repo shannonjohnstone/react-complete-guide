@@ -4,6 +4,7 @@ import BurgerBuildControl from '../../components/Burger/BurgerBuildControl'
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary';
 import { prices } from '../../reference-data/prices';
+import { ordersAPI } from '../../api';
 
 class BurgerBuilder extends Component {
     state = {
@@ -67,6 +68,29 @@ class BurgerBuilder extends Component {
             purchasing: !this.state.purchasing
         })
     }
+
+    handlePurchase = async () => {
+        try {
+            const res = await ordersAPI.createOrder({
+                ingredients: this.state.ingredients,
+                price: this.state.price.toFixed(2),
+                customer: {
+                    name: 'Dustin',
+                    address: {
+                        street: '123 Fake Street',
+                        postcode: '2000',
+                        country: 'Australia'
+                    },
+                    email: 'fake@email.com'
+                },
+                delivery_method: 'fastest'
+            });
+            console.log(res, 'ordering res')
+        } catch (error) {
+            console.log('order error', error)
+        }
+    }
+
     render() {
         return (
             <>
@@ -75,6 +99,7 @@ class BurgerBuilder extends Component {
                         price={this.state.price.total}
                         ingredients={this.state.ingredients}
                         handleCancel={this.handlerPurchasing}
+                        handlePurchase={this.handlePurchase}
                     />
                 </Modal>
                 <Burger ingredients={this.state.ingredients} />
