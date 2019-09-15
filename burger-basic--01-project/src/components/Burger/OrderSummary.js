@@ -9,7 +9,7 @@ const OrderSummary = React.memo(function OrderSummary(props) {
     )
 
     return (
-        <>
+        <div>
             <h3>Your Order</h3>
             <p>A delicious burger with the following ingredients</p>
             <ul>
@@ -19,7 +19,7 @@ const OrderSummary = React.memo(function OrderSummary(props) {
             <p>Continue to checkout?</p>
             <Button btnType="Danger" onClick={props.handleCancel}>Cancel</Button>
             <Button btnType="Success" onClick={props.handlePurchase}>Continue</Button>
-        </>
+        </div>
     )
 })
 

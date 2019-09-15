@@ -10,7 +10,7 @@ import classes from './Burger.module.css';
  * create an array with the specified amount of undefined items
  * this is than used to create each item to the specified amount
  */
-const transformIngredients = (ingredientsObject) => ({ el, err }) => {
+const transformIngredients = (ingredientsObject) => ({ el, defaultMsg }) => {
     const results = Object.keys(ingredientsObject).map(key => {
         // [...Array(ingredientsObject[key])], is equal to
         // [...Array(2)], this create am array with that many spots 
@@ -20,7 +20,7 @@ const transformIngredients = (ingredientsObject) => ({ el, err }) => {
         )
     }).reduce((prev, curr) => prev.concat(curr), []);
 
-    return results.length ? results : err();
+    return results.length ? results : defaultMsg();
 }
 
 const Burger = (props) => (
@@ -30,7 +30,11 @@ const Burger = (props) => (
             el: ({ key, index }) => (
                 <BurgerIngredients key={`${key + index}`} type={key} />
             ),
-            err: () => <p><strong>There seems to be no ingredients added!</strong></p>
+            defaultMsg: () => {
+                return props.successfulPurchase ? 
+                    <p>Thanks for you purchase, would you like to build another ?</p> : 
+                    <p><strong>There seems to be no ingredients added!</strong></p>
+            }
         })}
         <BurgerIngredients type={'bread-bottom'} />
     </div>
