@@ -19,6 +19,10 @@ class FullPost extends Component {
         }
     }
 
+    deletePostHandler = (id) => {
+        API.deletePost(id)
+    }
+
     render() {
         const postData = this.state.loadedPost
 
@@ -31,7 +35,7 @@ class FullPost extends Component {
                                 <h1>{postData.title}</h1>
                                 <p>{postData.body}</p>
                                 <div className="Edit">
-                                    <button className="Delete">Delete</button>
+                                    <button className="Delete" onClick={() => this.deletePostHandler(postData.id)}>Delete</button>
                                 </div>
                             </div>
                         )

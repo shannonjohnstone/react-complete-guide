@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 
 import Post from '../../components/Post/Post';
 import FullPost from '../../components/FullPost/FullPost';
@@ -11,14 +10,32 @@ import { API } from '../../api'
 class Blog extends Component {
     state = {
         posts: [],
-        selectedPost: null
+        selectedPost: null,
+        postLimit: 4,
+        error: false
+    }
+
+    async resolvePostData() {
+        const updatePostWithAuthor = (author) => {
+            return (post) => ({ ...post, author })
+        }
+
+        const limitPosts = (posts) => {
+            return posts.slice(0, this.state.postLimit);
+        }
+
+        try {
+            const res = await API.getPosts();
+            return limitPosts(res.data).map(updatePostWithAuthor('Dustin'));
+        } catch (error) {
+            this.setState({ error: true })
+        }
+
     }
 
     async componentDidMount() {
-        const res = await API.getPosts();
-
         // limit posts set to store and update with author
-        const posts = res.data.slice(0, 4).map(post => ({ ...post, author: 'Dustin' }))
+        const posts = await this.resolvePostData()
 
         this.setState({ posts })
     }
@@ -28,11 +45,13 @@ class Blog extends Component {
     }
 
     render() {
-        console.log(this.state.posts)
         return (
             <div>
                 <section className="Posts">
-                    {this.state.posts.map(post => <Post key={post.id} {...post} handleSelectPost={this.selectPost} />)}
+                    {!this.state.error ?
+                        this.state.posts.map(post => <Post key={post.id} {...post} handleSelectPost={this.selectPost} />) :
+                        <p style={{ textAlign: 'center', width: '100%' }}>Something went wrong!</p>
+                    }
                 </section>
                 <section>
                     <FullPost id={this.state.selectedPost} />
