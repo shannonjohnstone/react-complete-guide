@@ -1,34 +1,23 @@
+/**
+ * ordersAPI singleton instance
+ * factory singleton instance of order API, no matter how many times this component
+ * is imported it will only create the one instance
+ */
+
+let instance;
+
 export const ordersAPI = ((axios, baseURL, apiName) => {
     const log = (msg) => console.log(`@@ ${apiName} > ${msg}`)
-    const errorLog = (msg, err) => console.log(`@@ ${apiName} > ${msg}`, err)
 
-    log('bootstrap');
-
-    let instance;
+    if (!instance) {
+        log('Initializing')
+        instance = axios.create({ baseURL });
+    }
 
     return {
         createOrder: (data) => instance.post(`/orders.json`, data),
-        init: () => {
-            log('Initializing')
-
-            instance = axios.create({ baseURL });
-
-            instance.interceptors.request.use(request => {
-                log('request')
-                return request;
-            }, error => {
-                errorLog(`request error`, error);
-                return Promise.reject(error);
-            });
-
-            instance.interceptors.response.use(response => {
-                log('response')
-                return response;
-            }, error => {
-                errorLog(`response error`, error);
-                return Promise.reject(error);
-            });
-        }
+        getIngredients: () => instance.get(`/ingredients.json`),
+        getInstance: () => instance
     }
 })(
     require('axios'),

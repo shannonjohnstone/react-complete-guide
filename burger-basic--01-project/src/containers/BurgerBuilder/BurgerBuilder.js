@@ -4,27 +4,28 @@ import BurgerBuildControl from '../../components/Burger/BurgerBuildControl'
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary';
 import Spinner from '../../components/UI/Spinner/Spinner';
+import withApiErrorHandler from '../../hoc/withApiErrorHandler';
 
 import { prices } from '../../reference-data/prices';
-import { ordersAPI } from '../../api';
+import { createOrderModal, defaultState } from './util/data';
 
-const defaultState = {
-    ingredients: {
-        salad: 0,
-        bacon: 0,
-        cheese: 0,
-        meat: 0
-    },
-    price: {
-        total: 0
-    },
-    purchasing: false,
-    loading: false,
-    successfulPurchase: false,
-}
+import { ordersAPI } from '../../api';
 
 class BurgerBuilder extends Component {
     state = defaultState
+
+    async componentDidMount() {
+        try {
+            this.setState({ ...this.state, loading: true });
+            const res = await ordersAPI.getIngredients()            
+            this.setState({ ...this.state, ingredients: res.data });
+        } catch (error) {
+            console.log(error, 'error: retrieve ingredients')
+        } finally {
+            this.setState({ ...this.state, loading: false });
+        }
+    }
+
     manageIngredients = (type) => (conditionType) => {
         const currentValue = this.state.ingredients[type];
         const conditions = {
@@ -40,6 +41,7 @@ class BurgerBuilder extends Component {
             }
         }
     }
+
     managePrice = (type) => (conditionType) => {
         const total = Object.keys(this.state.ingredients)
             .filter(key => this.state.ingredients[key] > 0)
@@ -54,6 +56,7 @@ class BurgerBuilder extends Component {
             }
         }
     }
+
     addIngredientsHandler = (type) => {
         const conditionType = 'add';
         this.setState(
@@ -61,6 +64,7 @@ class BurgerBuilder extends Component {
             () => this.setState(this.managePrice(type)(conditionType))
         )
     }
+
     removeIngredientsHandler = (type) => {
         const conditionType = 'remove';
         this.setState(
@@ -68,6 +72,7 @@ class BurgerBuilder extends Component {
             () => this.setState(this.managePrice(type)(conditionType))
         )
     }
+
     handlerPurchasing = () => {
         this.setState({
             ...this.state,
@@ -79,20 +84,7 @@ class BurgerBuilder extends Component {
         // setting dummy data for some values currently
         this.setState({ ...this.state, loading: true });
         try {
-            const res = await ordersAPI.createOrder({
-                ingredients: this.state.ingredients,
-                price: this.state.price.total.toFixed(2),
-                customer: {
-                    name: 'Dustin',
-                    address: {
-                        street: '123 Fake Street',
-                        postcode: '2000',
-                        country: 'Australia'
-                    },
-                    email: 'fake@email.com'
-                },
-                delivery_method: 'fastest'
-            });
+            const res = await ordersAPI.createOrder(createOrderModal(this.state));
             this.setState({ ...defaultState, successfulPurchase: true });
         } catch (error) {
             console.log('order error', error)
@@ -129,4 +121,4 @@ class BurgerBuilder extends Component {
     }
 }
 
-export default BurgerBuilder;
+export default withApiErrorHandler(BurgerBuilder, ordersAPI.getInstance());
