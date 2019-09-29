@@ -1,21 +1,38 @@
-.Post {
-    width: 100px;
-    padding: 16px;
-    text-align: center;
+.FullPost {
+    width: 80%;
+    margin: 20px auto;
     border: 1px solid #eee;
     box-shadow: 0 2px 3px #ccc;
-    /* margin: 10px; */
-    box-sizing: border-box;
+    text-align: center;
+}
+
+.Edit {
+
+}
+
+.Edit label {
+    display: block;
+    color: grey;
+}
+
+.Edit button {
+    border: none;
+    background-color: transparent;
     cursor: pointer;
-    flex-basis: 23%;
+    outline: none;
+    color: #fa923f;
 }
 
-.Post:hover,
-.Post:active {
-    background-color: #C0DDF5;
+.Edit button:hover,
+.Edit button:active {
+    color: #521751;
 }
 
-.Author {
-    margin: 16px 0;
-    color: #ccc;
+.Edit button.Delete {
+    color: red;
+}
+
+.Edit button.Delete:hover,
+.Edit button.Delete:active {
+    color: darkred;
 }

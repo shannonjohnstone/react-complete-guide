@@ -1,10 +1,9 @@
 import React from 'react'
-import Post from '../Post/Post';
+import PostPreviewTile from '../../components/Post/PostPreviewTile';
 import { API } from '../../api'
 import withHandleApiError from '../../hoc/withHandleApiError'
-import axios from 'axios';
 
-class PostList extends React.Component {
+class PreviewPostsContainer extends React.Component {
     state = {
         posts: [],
         postLimit: 4,
@@ -40,9 +39,9 @@ class PostList extends React.Component {
     render() {
         console.log(this.state, 'this.state')
         return (
-            this.state.posts.map(post => <Post key={post.id} {...post} handleSelectPost={this.props.selectPost} />)
+            this.state.posts.map(post => <PostPreviewTile key={post.id} {...post} handleSelectPost={this.props.selectPost} />)
         )
     }
 }
 
-export default withHandleApiError(PostList, API.getInstance(), 'Something went wrong while trying to look for posts!');
+export default withHandleApiError(PreviewPostsContainer, API.getInstance(), 'Something went wrong while trying to look for posts!');

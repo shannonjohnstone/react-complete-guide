@@ -1,14 +1,15 @@
-import React from 'react';
+import React from 'react'
 
-import './Post.css';
+import('./Post.css');
 
-const post = (props) => (
-    <article className="Post" onClick={() => props.handleSelectPost(props.id)}>
+const Post = (props) => (
+    <div>
         <h1>{props.title}</h1>
-        <div className="Info">
-            <div className="Author">{props.author}</div>
+        <p>{props.body}</p>
+        <div className="Edit">
+            <button className="Delete" onClick={() => this.deletePostHandler(props.id)}>Delete</button>
         </div>
-    </article>
-);
+    </div>
+)
 
-export default post;
+export default Post;

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
+import Post from '../../components/Post/Post';
 
-import './FullPost.css';
 import { API } from '../../api'
 
-class FullPost extends Component {
+class PostContainer extends Component {
     state = {
         loadedPost: {}
     }
@@ -35,17 +35,9 @@ class FullPost extends Component {
         return (
             <div className="FullPost">
                 {
-                    !postData.id ? <p>Please select a Post!</p> :
-                        (
-                            <div>
-                                <h1>{postData.title}</h1>
-                                <p>{postData.body}</p>
-                                <div className="Edit">
-                                    <button className="Delete" onClick={() => this.deletePostHandler(postData.id)}>Delete</button>
-                                </div>
-                            </div>
-                        )
-
+                    !postData.id ? 
+                        <p>Please select a Post!</p> :
+                        <Post {...postData} />
                 }
             </div>
 
@@ -53,4 +45,4 @@ class FullPost extends Component {
     }
 }
 
-export default FullPost;
+export default PostContainer;
