@@ -4,6 +4,7 @@ import withHandleApiError from '../../hoc/withHandleApiError'
 import { API } from '../../api';
 import NewPost from '../../components/Post/NewPost';
 import ConditionalRedirect from '../../components/Navigation/ConditionalRedirect';
+import AuthenticationContainer from '../../containers/Authentication/Authentication';
 
 class NewPostContainer extends Component {
     state = {
@@ -29,12 +30,12 @@ class NewPostContainer extends Component {
     }
 
     handleChangeEvent = (obj = {}) => {
-        this.setState({ ...this.state, ...obj })
+        this.setState({ ...this.state, ...obj });
     }
 
     render() {
         return (
-            <div>
+            <AuthenticationContainer>
                 <ConditionalRedirect
                     condition={this.state.submitted}
                     to="/posts"
@@ -46,7 +47,7 @@ class NewPostContainer extends Component {
                     />
                 </ConditionalRedirect>
 
-            </div>
+            </AuthenticationContainer>
         );
     }
 }
