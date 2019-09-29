@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom'
 
 import PostContainer from '../Post/PostContainer';
-import NewPost from '../../components/NewPost/NewPost';
+import NewPostContainer from '../../containers/Post/NewPostContainer';
 import PreviewPostsContainer from '../Post/PreviewPostsContainer';
 
 import './Blog.css';
@@ -27,11 +27,7 @@ class Blog extends Component {
                         <PostContainer id={this.state.selectedPost} />
                     </section>
                 </Route>
-                <Route path="/new-post">
-                    <section>
-                        <NewPost />
-                    </section>
-                </Route>
+                <Route path="/new-post" component={NewPostContainer} />
             </div>
         );
     }
