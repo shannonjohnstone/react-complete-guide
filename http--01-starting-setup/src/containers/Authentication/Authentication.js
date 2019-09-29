@@ -2,10 +2,9 @@ import React from 'react'
 import ConditionalRedirect from '../../components/Navigation/ConditionalRedirect';
 
 const AuthenticationContainer = (props) => {
-    const auth = true;
     return (
         <ConditionalRedirect
-            condition={!auth}
+            condition={props.authenticated === false}
             to="/login"
         >
             {props.children}

@@ -35,19 +35,17 @@ class NewPostContainer extends Component {
 
     render() {
         return (
-            <AuthenticationContainer>
-                <ConditionalRedirect
-                    condition={this.state.submitted}
-                    to="/posts"
-                >
-                    <NewPost
-                        {...this.state}
-                        handleChangeEvent={this.handleChangeEvent}
-                        postDataHandler={this.postDataHandler}
-                    />
-                </ConditionalRedirect>
+            <ConditionalRedirect
+                condition={this.state.submitted}
+                to="/posts"
+            >
+                <NewPost
+                    {...this.state}
+                    handleChangeEvent={this.handleChangeEvent}
+                    postDataHandler={this.postDataHandler}
+                />
+            </ConditionalRedirect>
 
-            </AuthenticationContainer>
         );
     }
 }
