@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Post from '../../components/Post/Post';
-
+import withHandleApiError from '../../hoc/withHandleApiError'
 
 import { API } from '../../api'
 
@@ -38,4 +38,4 @@ class PostContainer extends Component {
     }
 }
 
-export default PostContainer;
+export default withHandleApiError(PostContainer, API.getInstance(), 'Something went wrong while trying to look for your post!');

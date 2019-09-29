@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { API } from '../../api';
 
+import withHandleApiError from '../../hoc/withHandleApiError'
+import { API } from '../../api';
 import NewPost from '../../components/Post/NewPost';
 
 class NewPostContainer extends Component {
@@ -35,4 +36,4 @@ class NewPostContainer extends Component {
     }
 }
 
-export default NewPostContainer;
+export default withHandleApiError(NewPostContainer, API.getInstance(), 'Something went wrong while trying to add your post!');
