@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom'
 
 import FullPost from '../../components/FullPost/FullPost';
 import NewPost from '../../components/NewPost/NewPost';
-import PostList from '../../components/PostList';
+import PostList from '../../components/Posts/PostList';
 
 import './Blog.css';
 
@@ -26,15 +27,20 @@ class Blog extends Component {
                         </ul>
                     </nav>
                 </header>
-                <section className="Posts">
-                    <PostList selectPost={this.selectPost} />
-                </section>
-                <section>
-                    <FullPost id={this.state.selectedPost} />
-                </section>
-                <section>
-                    <NewPost />
-                </section>
+                <Route path='/' exact >
+                    <section className="Posts">
+                        <PostList selectPost={this.selectPost} />
+                    </section>
+                    <section>
+                        <FullPost id={this.state.selectedPost} />
+                    </section>
+                </Route>
+                <Route>
+                    <section>
+                        <NewPost />
+                    </section>
+                </Route>
+
             </div>
         );
     }

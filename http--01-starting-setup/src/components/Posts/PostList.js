@@ -1,7 +1,8 @@
 import React from 'react'
-import Post from './Post/Post';
-import { API } from '../api'
-import withHandleApiError from '../hoc/withHandleApiError'
+import Post from '../Post/Post';
+import { API } from '../../api'
+import withHandleApiError from '../../hoc/withHandleApiError'
+import axios from 'axios';
 
 class PostList extends React.Component {
     state = {
@@ -23,6 +24,7 @@ class PostList extends React.Component {
             const res = await API.getPosts();
             return limitPosts(res.data).map(updatePostWithAuthor('Dustin'));
         } catch (error) {
+            console.log(error, 'error...')
             this.setState({ error: true })
         }
     

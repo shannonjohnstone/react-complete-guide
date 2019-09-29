@@ -7,11 +7,12 @@ const withHandleApiError = (WrappedComponent, instance, msg) => {
         }
 
         componentDidMount() {
-            this.apiInstanceRequest = instance.interceptors.response.use(req => {
+            this.apiInstanceRequest = instance.interceptors.request.use(request => {
                 this.setState({ error: null })
+                return request;
             })
 
-            this.apiInstanceResponse = instance.interceptors.request.use(res => res, error => {
+            this.apiInstanceResponse = instance.interceptors.response.use(response => response, error => {
                 this.setState({ error })
             })
         }
