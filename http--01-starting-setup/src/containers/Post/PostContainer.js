@@ -1,28 +1,21 @@
 import React, { Component } from 'react';
 import Post from '../../components/Post/Post';
 
+
 import { API } from '../../api'
 
 class PostContainer extends Component {
     state = {
         loadedPost: {}
     }
-
-    componentDidUpdate() {
-        const loadedPostId = this.state.loadedPost.id ? this.state.loadedPost.id : null;
-
-        console.log(this.props.id !== loadedPostId, this.props.id, loadedPostId, 'this.props.id !== loadedPostId')
-        if (this.props.id && (this.props.id !== loadedPostId)) {
-            this.resolvePost(this.props.id)
-        }
+    
+    componentDidMount() {
+        this.resolvePost(this.props.match.params.id)
     }
 
     resolvePost = async (id) => {
         const res = await API.getPost(id);
-
-        const loadedPost = res.data;
-
-        this.setState({ loadedPost });
+        this.setState({ loadedPost: res.data });
     }
 
     deletePostHandler = (id) => {
@@ -36,7 +29,7 @@ class PostContainer extends Component {
             <div className="FullPost">
                 {
                     !postData.id ? 
-                        <p>Please select a Post!</p> :
+                        <p>Sorry could not find that particular post, please try again!</p> :
                         <Post {...postData} />
                 }
             </div>

@@ -1,4 +1,6 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
+
 import PostPreviewTile from '../../components/Post/PostPreviewTile';
 import { API } from '../../api'
 import withHandleApiError from '../../hoc/withHandleApiError'
@@ -14,32 +16,32 @@ class PreviewPostsContainer extends React.Component {
         const updatePostWithAuthor = (author) => {
             return (post) => ({ ...post, author })
         }
-    
+
         const limitPosts = (posts) => {
             return posts.slice(0, this.state.postLimit);
         }
-    
+
         try {
             const res = await API.getPosts();
             return limitPosts(res.data).map(updatePostWithAuthor('Dustin'));
         } catch (error) {
-            console.log(error, 'error...')
             this.setState({ error: true })
         }
-    
+
     }
-    
+
     async componentDidMount() {
         // limit posts set to store and update with author
         const posts = await this.resolvePostData()
-    
+
         this.setState({ posts })
     }
 
     render() {
-        console.log(this.state, 'this.state')
         return (
-            this.state.posts.map(post => <PostPreviewTile key={post.id} {...post} handleSelectPost={this.props.selectPost} />)
+            <section className="Posts">
+                {this.state.posts.map(post => <PostPreviewTile key={post.id} {...post} />)}
+            </section>
         )
     }
 }
