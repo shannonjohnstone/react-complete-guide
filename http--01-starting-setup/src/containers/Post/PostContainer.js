@@ -3,7 +3,6 @@ import Post from '../../components/Post/Post';
 import withHandleApiError from '../../hoc/withHandleApiError'
 
 import { API } from '../../api'
-import post from '../../components/Post/PostPreviewTile';
 
 class PostContainer extends Component {
     state = {

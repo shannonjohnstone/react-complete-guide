@@ -3,12 +3,14 @@ import React, { Component } from 'react';
 import withHandleApiError from '../../hoc/withHandleApiError'
 import { API } from '../../api';
 import NewPost from '../../components/Post/NewPost';
+import ConditionalRedirect from '../../components/Navigation/ConditionalRedirect';
 
 class NewPostContainer extends Component {
     state = {
         title: '',
         content: '',
-        author: 'Max'
+        author: 'Max',
+        submitted: false
     }
 
     resolvePostData = (state) => ({
@@ -18,7 +20,12 @@ class NewPostContainer extends Component {
     })
 
     postDataHandler = async () => {
-        await API.postNewPost(this.resolvePostData(this.state))
+        try {
+            await API.postNewPost(this.resolvePostData(this.state))
+            this.setState({ ...this.state, submitted: true });
+        } catch (error) {
+            console.log(error, 'Error posting new post');
+        }
     }
 
     handleChangeEvent = (obj = {}) => {
@@ -27,11 +34,19 @@ class NewPostContainer extends Component {
 
     render() {
         return (
-            <NewPost 
-                {...this.state}
-                handleChangeEvent={this.handleChangeEvent}
-                postDataHandler={this.postDataHandler}
-            />
+            <div>
+                <ConditionalRedirect
+                    condition={this.state.submitted}
+                    to="/posts"
+                >
+                    <NewPost
+                        {...this.state}
+                        handleChangeEvent={this.handleChangeEvent}
+                        postDataHandler={this.postDataHandler}
+                    />
+                </ConditionalRedirect>
+
+            </div>
         );
     }
 }
