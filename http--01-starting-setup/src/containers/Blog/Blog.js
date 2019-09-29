@@ -27,7 +27,7 @@ class Blog extends Component {
                         </ul>
                     </nav>
                 </header>
-                <Route path='/' exact >
+                <Route path='/' exact>
                     <section className="Posts">
                         <PostList selectPost={this.selectPost} />
                     </section>
@@ -35,7 +35,7 @@ class Blog extends Component {
                         <FullPost id={this.state.selectedPost} />
                     </section>
                 </Route>
-                <Route>
+                <Route path="/new-post">
                     <section>
                         <NewPost />
                     </section>
