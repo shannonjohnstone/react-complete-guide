@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router';
 
 import './PostPreviewTile.css';
 
-const post = (props) => (
-    <Link to={`/${props.id}`} className="PostPreviewTile">
+const Post = (props) => (
+    <Link to={`${props.match.url}/${props.id}`} className="PostPreviewTile">
         <article>
             <h1>{props.title}</h1>
             <div className="Info">
@@ -14,4 +15,4 @@ const post = (props) => (
     </Link>
 );
 
-export default post;
+export default withRouter(Post);

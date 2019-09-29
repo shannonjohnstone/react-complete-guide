@@ -3,19 +3,29 @@ import Post from '../../components/Post/Post';
 import withHandleApiError from '../../hoc/withHandleApiError'
 
 import { API } from '../../api'
+import post from '../../components/Post/PostPreviewTile';
 
 class PostContainer extends Component {
     state = {
-        loadedPost: {}
+        post: {}
     }
     
     componentDidMount() {
         this.resolvePost(this.props.match.params.id)
     }
 
+    componentDidUpdate(prevProps) {
+        const id = Number(this.props.match.params.id);
+        const prevId = Number(prevProps.match.params.id);
+
+        if(id && (id !== prevId)) {
+            this.resolvePost(id);
+        }
+    }
+
     resolvePost = async (id) => {
         const res = await API.getPost(id);
-        this.setState({ loadedPost: res.data });
+        this.setState({ post: res.data });
     }
 
     deletePostHandler = (id) => {
@@ -23,14 +33,14 @@ class PostContainer extends Component {
     }
 
     render() {
-        const postData = this.state.loadedPost
+        const post = this.state.post
 
         return (
             <div className="FullPost">
                 {
-                    !postData.id ? 
+                    !post.id ? 
                         <p>Sorry could not find that particular post, please try again!</p> :
-                        <Post {...postData} />
+                        <Post {...post} />
                 }
             </div>
 
