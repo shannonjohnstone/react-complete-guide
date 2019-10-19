@@ -5,7 +5,7 @@ const AuthenticationContainer = (props) => {
     return (
         <ConditionalRedirect
             condition={props.authenticated === false}
-            to="/login"
+            to={props.to || '/login'}
         >
             {props.children}
         </ConditionalRedirect>

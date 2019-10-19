@@ -30,8 +30,7 @@ class PreviewPostsContainer extends React.Component {
     }
 
     async componentDidMount() {
-        // limit posts set to store and update with author
-        const posts = await this.resolvePostData()
+        const posts = await this.resolvePostData() || [];
 
         this.setState({ posts })
     }

@@ -5,6 +5,7 @@ import PostsContainer from '../Post/PostsContainer';
 import NotFound from '../NotFound/NotFound';
 import Login from '../Authentication/Login'
 import AuthenticationContainer from '../../containers/Authentication/Authentication';
+import AuthenticationHOC from '../../containers/Authentication/AuthenticationHOC';
 import asyncComponent from '../../hoc/asyncComponent';
 
 import './Blog.css';
@@ -14,12 +15,8 @@ const AsyncNewPost = asyncComponent(() => import('../../containers/Post/NewPostC
 const Blog = () => (
     <div className={"Blog"}>
         <Switch>
-            <Route path="/new-post">
-                <AuthenticationContainer authenticated={true}>
-                    <Route path="/new-post" component={AsyncNewPost} />
-                </AuthenticationContainer>
-            </Route>
-            <Route path='/posts' component={PostsContainer} />
+            <Route path="/new-post" component={AuthenticationHOC(AsyncNewPost, { authenticated: true })} />
+            <Route path='/posts' component={PostsContainer} />  
             <Route path='/login' exact component={Login} />
             <Route component={NotFound} />
         </Switch>
