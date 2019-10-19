@@ -1,24 +1,28 @@
 import React from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom'
-
-import PostsContainer from '../Post/PostsContainer';
-import NotFound from '../NotFound/NotFound';
-import Login from '../Authentication/Login'
-import AuthenticationContainer from '../../containers/Authentication/Authentication';
-import AuthenticationHOC from '../../containers/Authentication/AuthenticationHOC';
-import asyncComponent from '../../hoc/asyncComponent';
+import { Route, Switch } from 'react-router-dom'
 
 import './Blog.css';
 
-const AsyncNewPost = asyncComponent(() => import('../../containers/Post/NewPostContainer'))
+import AuthenticationHOC from '../../containers/Authentication/AuthenticationHOC';
+
+const NewPosts = React.lazy(() => import('../../containers/Post/NewPostContainer'));
+const Posts = React.lazy(() => import('../Post/PostsContainer'));
+const Login = React.lazy(() => import('../Authentication/Login'));
+const NotFound = React.lazy(() => import('../NotFound/NotFound'));
+
+const renderSuspense = Component => props => (
+    <React.Suspense fallback={<div>Loading...</div>}>
+        <Component {...props} />
+    </React.Suspense>
+)
 
 const Blog = () => (
     <div className={"Blog"}>
         <Switch>
-            <Route path="/new-post" component={AuthenticationHOC(AsyncNewPost, { authenticated: true })} />
-            <Route path='/posts' component={PostsContainer} />  
-            <Route path='/login' exact component={Login} />
-            <Route component={NotFound} />
+            <Route path="/new-post" component={renderSuspense(AuthenticationHOC(NewPosts, { authenticated: true }))} />
+            <Route path='/posts' component={renderSuspense(Posts)} />  
+            <Route path='/login' exact component={renderSuspense(Login)} />
+            <Route component={renderSuspense(NotFound)} />
         </Switch>
     </div>
 );
