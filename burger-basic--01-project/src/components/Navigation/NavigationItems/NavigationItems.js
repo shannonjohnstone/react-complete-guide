@@ -8,10 +8,15 @@ const defaultNavigationItems = [
         active: true
     },
     {
+        text: 'Checkout',
+        link: '/checkout',
+        active: false
+    },
+    {
         text: 'Contact Us',
         link: '/contact',
         active: false
-    }
+    },
 ]
 
 const NavigationItems = ({ items = defaultNavigationItems }) => (

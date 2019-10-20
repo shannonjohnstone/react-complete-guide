@@ -18,7 +18,7 @@ const OrderSummary = React.memo(function OrderSummary(props) {
             <p>Total price: <strong>${props.price.toFixed(2)}</strong></p>
             <p>Continue to checkout?</p>
             <Button btnType="Danger" onClick={props.handleCancel}>Cancel</Button>
-            <Button btnType="Success" onClick={props.handlePurchase}>Continue</Button>
+            <Button btnType="Success" onClick={props.handleContinue}>Continue</Button>
         </div>
     )
 })

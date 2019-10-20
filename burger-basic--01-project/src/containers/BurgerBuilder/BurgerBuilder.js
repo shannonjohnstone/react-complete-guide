@@ -93,6 +93,10 @@ class BurgerBuilder extends Component {
         }
     }
 
+    handelContinue = () => {
+        this.props.history.push('/checkout', { ingredients: this.state.ingredients, price: this.state.price })
+    }
+
     render() {
         return (
             <>
@@ -103,7 +107,7 @@ class BurgerBuilder extends Component {
                                 price={this.state.price.total}
                                 ingredients={this.state.ingredients}
                                 handleCancel={this.handlerPurchasing}
-                                handlePurchase={this.handlePurchase}
+                                handleContinue={this.handelContinue}
                             /> :
                             <Spinner />
                     }
