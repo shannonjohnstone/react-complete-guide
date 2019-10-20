@@ -22,6 +22,10 @@ const rootReducer = (state = initialState, action) => {
 
 const store = createStore(rootReducer)
 
+store.subscribe(() => {
+    console.log("[Subscription]", store.getState())
+})
+
 console.log(store.getState());
 
 store.dispatch({ type: COUNT_TYPES.ADD, value: 10 })
